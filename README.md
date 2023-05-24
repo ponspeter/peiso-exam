@@ -37,20 +37,6 @@ It fetch the records from Kounta API and save it to local database.
 
 * After run backend server, you can see backend routes on [**Swagger UI**](http://localhost:8082/swagger-ui.html)
 
-**Frontend:**
-
-| Name | Path            | HTTP Verb | Purpose                                     	 |
-|------|-----------------|-----------|-----------------------------------------------|
-| TBD  | /               | GET       | ---                               	           |
-
-
-### Installation
-
-1. After cloning process, in project directory run `mvn clean install`, it will install all necessary dependencies.
-2. To run only backend, run `mvn --projects backend spring-boot:run`
-3. Check the swagger ui on [**Swagger UI**](http://localhost:8082/swagger-ui.html)
-4. [OPTIONAL] To run Vue CLI, run `npm run serve` command in frontend directory. This will work on `localhost:8080`
-
 ### How to use
 1. For Authorization, use the following request in the request body
 ```json
@@ -76,7 +62,7 @@ http://your-redirection.uri/?code=d10f93d08cb08cb016f0db98977663835652b321&state
 ```
 
 2. Once you get the access token, you can use it to get the products, staff and orders.
-'Authorization' header is required in order to get the data from Kounta API.
+   'Authorization' header is required in order to get the data from Kounta API.
 ```
 Sample :
 Bearer 1a2b3c4d5e6f7g8h9i0j
@@ -91,3 +77,17 @@ Bearer 1a2b3c4d5e6f7g8h9i0j
   "grant_type":"refresh_token"
 }
 ```
+
+**Frontend:**
+
+| Name | Path            | HTTP Verb | Purpose                                     	 |
+|------|-----------------|-----------|-----------------------------------------------|
+| TBD  | /               | GET       | ---                               	           |
+
+
+### Installation
+
+1. After cloning process, in project directory run `mvn clean install`, it will install all necessary dependencies.
+2. To run only backend, run `mvn --projects backend spring-boot:run`
+3. Check the swagger ui on [**Swagger UI**](http://localhost:8082/swagger-ui.html)
+4. [OPTIONAL] To run Vue CLI, run `npm run serve` command in frontend directory. This will work on `localhost:8080`

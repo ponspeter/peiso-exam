@@ -14,7 +14,7 @@ public interface KountaService {
 
     List<StaffResponse> getAllStaff(String accessToken);
 
-    List<OrdersResponse> getAllOrders(String accessToken);
+    List<OrdersResponse> getAllOrders(String accessToken, String created_lte, String created_gte);
 
     AuthorizationResponse authorize(AuthorizationRequest authorizationRequest);
 

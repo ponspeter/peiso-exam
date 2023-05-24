@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -55,8 +56,10 @@ public class KountaController {
     }
 
     @GetMapping("/orders")
-    public List<OrdersResponse> getAllOrders(@RequestHeader("Authorization") String authorization) {
-        List<OrdersResponse> response = kountaService.getAllOrders(authorization);
+    public List<OrdersResponse> getAllOrders(@RequestHeader("Authorization") String authorization,
+                                             @RequestParam("created_lte") String created_lte,
+                                             @RequestParam("created_gte") String created_gte) {
+        List<OrdersResponse> response = kountaService.getAllOrders(authorization, created_lte, created_gte);
         return response;
     }
 }

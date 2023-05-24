@@ -7,6 +7,7 @@ import com.peiso.exam.integration.response.ProductResponse;
 import com.peiso.exam.integration.response.StaffResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
@@ -24,6 +25,6 @@ public interface KountaApiClient {
     @GetMapping ("/companies/me/staff.json")
     List<StaffResponse> getAllStaff(@RequestHeader("Authorization") String authorization);
 
-    @GetMapping ("/companies/me/orders.json")
-    List<OrdersResponse> getAllOrders(@RequestHeader("Authorization") String authorization);
+    @GetMapping ("/companies/me/orders.json?created_lte={created_lte}&created_gte={created_gte}")
+    List<OrdersResponse> getAllOrders(@RequestHeader String authorization, @PathVariable("created_lte") String created_lte, @PathVariable("created_gte") String created_gte);
 }

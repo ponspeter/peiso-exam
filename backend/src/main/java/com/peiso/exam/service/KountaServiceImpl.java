@@ -35,8 +35,8 @@ public class KountaServiceImpl implements KountaService {
     }
 
     @Override
-    public List<OrdersResponse> getAllOrders(String accessToken) {
-        return kountaApiClient.getAllOrders(accessToken);
+    public List<OrdersResponse> getAllOrders(String accessToken, String created_lte, String created_gte) {
+        return kountaApiClient.getAllOrders(accessToken, created_lte, created_gte);
     }
 
     @Override

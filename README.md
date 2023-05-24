@@ -1,7 +1,7 @@
 # Peiso Exam
 
 ### Description
-This is a sample project for Peiso Exam. 
+This is a mini project for Peiso Exam. 
 It connect to Kounta API using basic authentication. 
 It fetch the records from Kounta API and save it to local database.
 
@@ -27,15 +27,15 @@ It fetch the records from Kounta API and save it to local database.
 
 **Backend:**
 
-| Name           | Path                       | HTTP Verb | Purpose                                     	         |
-|----------------|----------------------------|-----------|-------------------------------------------------------|
-| Authorize      | /api/kounta/authorize      | POST      | Use to fetch the access token in Kounta               |
-| Refresh Token  | /api/kounta/refresh-token  | POST      | Refresh the token in order to connect again in Kounta |
-| Get Products   | /api/kounta/products       | GET       | Get products from Kounta                              |
-| Get Staff      | /api/kounta/staff          | GET       | Get Staff from Kounta    	                            |
-| Get All Orders | /api/kounta/orders         | GET       | Get Orders from Kounta                         	      |
+| Name                | Path                                           | HTTP Verb | Purpose                                     	                                                       |
+|---------------------|------------------------------------------------|-----------|-----------------------------------------------------------------------------------------------------|
+| Authorize           | /api/kounta/authorize                          | POST      | Use to fetch the access token in Kounta                                                             |
+| Refresh Token       | /api/kounta/refresh-token                      | POST      | Refresh the token in order to connect again in Kounta                                               |
+| Get Products        | /api/kounta/products                           | GET       | Get all products from Kounta save it database and display                                           |
+| Get Staff           | /api/kounta/staff                              | GET       | Get all Staff from Kounta    	                                                                      |
+| Get Complete Orders | /api/kounta/orders?created_gte=''&created_lte='' | GET       | Get Complete Orders from Kounta by date range save it database and display                        	 |
 
-* After run backend server, you can see backend routes on [**Swagger UI**](http://localhost:8082/swagger-ui.html)
+* After run backend server, check [**Swagger UI**](http://localhost:8082/swagger-ui.html) for easy access on endpoints
 
 ### How to use
 1. For Authorization, use the following request in the request body

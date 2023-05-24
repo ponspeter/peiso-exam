@@ -1,7 +1,7 @@
 # Peiso Exam
 
 ### Description
-This project is a sample project for Peiso Exam. 
+This is a sample project for Peiso Exam. 
 It connect to Kounta API using basic authentication. 
 It fetch the records from Kounta API and save it to local database.
 

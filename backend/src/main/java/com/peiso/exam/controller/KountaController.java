@@ -1,9 +1,8 @@
 package com.peiso.exam.controller;
 
+import com.peiso.exam.common.model.ListResponse;
 import com.peiso.exam.integration.request.AuthorizationRequest;
 import com.peiso.exam.integration.response.AuthorizationResponse;
-import com.peiso.exam.integration.response.OrdersResponse;
-import com.peiso.exam.integration.response.ProductResponse;
 import com.peiso.exam.integration.response.StaffResponse;
 import com.peiso.exam.service.KountaService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +43,8 @@ public class KountaController {
     }
 
     @GetMapping("/products")
-    public List<ProductResponse> getAllProducts(@RequestHeader("Authorization") String authorization) {
-        List<ProductResponse> response = kountaService.getAllProducts(authorization);
-        return response;
+    public ListResponse getAllProducts(@RequestHeader("Authorization") String authorization) {
+        return kountaService.getAllProducts(authorization);
     }
 
     @GetMapping("/staff")
@@ -56,10 +54,9 @@ public class KountaController {
     }
 
     @GetMapping("/orders")
-    public List<OrdersResponse> getAllOrders(@RequestHeader("Authorization") String authorization,
+    public ListResponse getAllOrders(@RequestHeader("Authorization") String authorization,
                                              @RequestParam("created_lte") String created_lte,
                                              @RequestParam("created_gte") String created_gte) {
-        List<OrdersResponse> response = kountaService.getAllOrders(authorization, created_lte, created_gte);
-        return response;
+        return kountaService.getAllOrders(authorization, created_lte, created_gte);
     }
 }

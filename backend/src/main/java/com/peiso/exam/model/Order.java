@@ -14,18 +14,18 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "order_id", nullable = false)
-    private int order_id;
+    private int orderId;
 
     @Column(name = "status", nullable = false, columnDefinition = "TEXT")
     private String status;

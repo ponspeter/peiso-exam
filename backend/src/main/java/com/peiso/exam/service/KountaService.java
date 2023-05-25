@@ -17,7 +17,7 @@ public interface KountaService {
 
     ListResponse getAllOrdersFromKounta(String startDate, String endDate) throws JsonProcessingException;
 
-    ListResponse getAllOrders(String startDate, String endDate);
+    ListResponse getAllOrders();
 
     AuthorizationResponse authorize(AuthorizationRequest authorizationRequest) throws JsonProcessingException;
 

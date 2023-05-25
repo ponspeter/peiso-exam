@@ -6,7 +6,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <p>Total User : {{ total }}</p>
+    <p>Total Products : {{ total }}</p>
     <table class="table">
       <thead>
         <tr>
@@ -40,7 +40,6 @@
 
 
 <script>
-import { EventBus } from "./../../event-bus";
 
 export default {
   name: "Users",
@@ -62,39 +61,9 @@ export default {
       },
       () => {
         this.alert.isOpen = true;
-        this.alert.msg = "Users couldn't fetch from server!";
+        this.alert.msg = "Products couldn't fetch from server!";
       }
     );
-
-    EventBus.$on("userIsCreated", data => {
-      if (data) {
-        /* if the data has id field so can be push into users array
-      otherwise there is an error occur*/
-        if (data.id) {
-          this.products.push(data);
-          this.total++;
-          if (this.alert.isOpen) this.alert.isOpen = false;
-        } else {
-          this.alert.isOpen = true;
-          this.alert.msg = "The User couldn't create! " + data;
-        }
-      } else {
-        this.alert.isOpen = true;
-        this.alert.msg = "Couldn't get any response from the server!";
-      }
-    });
-
-    EventBus.$on("userIsUpdated", data => {
-      if (data.id) {
-        /* find the updated user according to id 
-        and update the user in the users array */
-        var userIndex = this.products.findIndex(user => user.id == data.id);
-        if (userIndex != -1) this.$set(this.products, userIndex, data);
-      } else {
-        this.alert.isOpen = true;
-        this.alert.msg = "The User couldn't update! " + data;
-      }
-    });
   }
 };
 </script>

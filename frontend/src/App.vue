@@ -3,19 +3,17 @@
 
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
-        <h1 class="display-4">Basic User CRUD Application</h1>
-        <p class="lead">In this project, VueJS is used for frontend, Java Spring Boot for backend side.</p>
+        <h1 class="display-4">Peiso Exam</h1>
+        <p class="lead">This project fetch the product and order from Kounta API and display</p>
       </div>
     </div>
 
-    <Products></Products>
-
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <router-link to="/" class="nav-link" active-class="active" exact>Products</router-link>
+        <router-link to="/product" class="nav-link" active-class="active" exact>Products</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/order" class="nav-link" active-class="active">Order</router-link>
+        <router-link to="/order" class="nav-link" active-class="active">Orders</router-link>
       </li>
     </ul>
 

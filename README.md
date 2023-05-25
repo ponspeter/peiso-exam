@@ -36,7 +36,7 @@ It fetch the records from Kounta API and save it to local database.
 | Refresh Token              | /api/kounta/refresh-token                                             | POST      | Refresh the token in order to connect again in Kounta                                               |
 | Get All Products           | /api/kounta/products/db                                               | GET       | Get all products from db                                                                            |
 | Fetch Products from Kounta | /api/kounta/products/kounta                                           | GET       | Fetch products from kounta and save into db    	                                                    |
-| Get All Orders             | /api/kounta/orders/db?startDate='YYYY-MM-DD'&endDate='YYYY-MM-DD'     | GET       | Get all orders from db                	                                                             |
+| Get All Orders             | /api/kounta/orders/db                                                 | GET       | Get all orders from db                	                                                             |
 | Get Complete Orders        | /api/kounta/orders/kounta?startDate='YYYY-MM-DD'&endDate='YYYY-MM-DD' | GET       | Get Complete Orders from Kounta by date range save it database                	 |
 
 * After run backend server, check [**Swagger UI**](http://localhost:8082/swagger-ui.html) for easy access on endpoints
@@ -82,11 +82,21 @@ Bearer 1a2b3c4d5e6f7g8h9i0j
 }
 ```
 
+4. To insert the data into database, use the following endpoints
+```
+To add products in database, use the following endpoint
+http://localhost:8082/api/kounta/products/kounta  (SWAGGER) getAllProductsFromKounta
+
+To add orders in the database, use the following endpoint
+http://localhost:8082/api/kounta/orders/kounta?startDate='YYYY-MM-DD'&endDate='YYYY-MM-DD' (SWAGGER) getCompleteOrdersFromKounta
+
+```
 **Frontend:**
 
-| Name | Path            | HTTP Verb | Purpose                                     	 |
-|------|-----------------|-----------|-----------------------------------------------|
-| TBD  | /               | GET       | ---                               	           |
+| Name             | Path     | HTTP Verb | Purpose                                     	            |
+|------------------|----------|-----------|----------------------------------------------------------|
+| GET ALL PRODUCTS | /product | GET       | display products from db                               	 |
+| GET ALL ORDERS   | /order   | GET       | display orders from db                               	   |
 
 
 ### Installation

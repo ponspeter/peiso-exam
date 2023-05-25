@@ -108,7 +108,7 @@ public class KountaServiceImpl implements KountaService {
     }
 
     @Override
-    public ListResponse getAllOrders(String startDate, String endDate) {
+    public ListResponse getAllOrders() {
         // Extract orders from db
         // assume for now that the orders are already in the db
         // this can be change to use the param as filter

@@ -5,6 +5,8 @@ import com.peiso.exam.common.model.ListResponse;
 import com.peiso.exam.integration.request.AuthorizationRequest;
 import com.peiso.exam.integration.response.AuthorizationResponse;
 import com.peiso.exam.service.KountaService;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,14 +52,13 @@ public class KountaController {
     }
 
     @GetMapping("/orders/db")
-    public ListResponse getAllOrdersFromDb(@RequestParam("startDate") String startDate,
-                                           @RequestParam("endDate") String endDate) {
-        return kountaService.getAllOrders(startDate, endDate);
+    public ListResponse getAllOrdersFromDb() {
+        return kountaService.getAllOrders();
     }
 
     @GetMapping("/orders")
     public ListResponse getAllOrdersFromKounta(@RequestParam("startDate") String startDate,
-                                     @RequestParam("endDate") String endDate) throws JsonProcessingException {
+                                               @RequestParam("endDate") String endDate) throws JsonProcessingException {
         return kountaService.getAllOrdersFromKounta(startDate, endDate);
     }
 }

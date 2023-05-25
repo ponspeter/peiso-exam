@@ -1,5 +1,6 @@
 package com.peiso.exam.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.peiso.exam.common.model.ListResponse;
 import com.peiso.exam.integration.request.AuthorizationRequest;
 import com.peiso.exam.integration.response.AuthorizationResponse;
@@ -10,15 +11,15 @@ import java.util.List;
 
 public interface KountaService {
 
-    ListResponse getAllProducts(String accessToken);
+    ListResponse getAllProductsFromKounta() throws JsonProcessingException;
 
     ListResponse getAllProducts();
 
-    ListResponse getAllOrders(String accessToken, String startDate, String endDate);
+    ListResponse getAllOrdersFromKounta(String startDate, String endDate) throws JsonProcessingException;
 
     ListResponse getAllOrders(String startDate, String endDate);
 
-    AuthorizationResponse authorize(AuthorizationRequest authorizationRequest);
+    AuthorizationResponse authorize(AuthorizationRequest authorizationRequest) throws JsonProcessingException;
 
     boolean addOrder(List<OrdersResponse> orders);
 

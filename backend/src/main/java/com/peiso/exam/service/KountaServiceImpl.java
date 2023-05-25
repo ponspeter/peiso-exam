@@ -1,5 +1,7 @@
 package com.peiso.exam.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiso.exam.common.model.ListResponse;
 import com.peiso.exam.integration.KountaApiClient;
 import com.peiso.exam.integration.request.AuthorizationRequest;
@@ -8,12 +10,15 @@ import com.peiso.exam.integration.response.OrdersResponse;
 import com.peiso.exam.integration.response.ProductResponse;
 import com.peiso.exam.model.Order;
 import com.peiso.exam.model.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class KountaServiceImpl implements KountaService {
 
     private final KountaApiClient kountaApiClient;
@@ -21,18 +26,29 @@ public class KountaServiceImpl implements KountaService {
 
     private final ProductService productService;
 
+    private final RedisCacheManager redisCacheManager;
+
+    private final ObjectMapper objectMapper;
+
     private final String BEARER = "Bearer ";
 
-    public KountaServiceImpl(KountaApiClient kountaApiClient, OrderService orderService, ProductService productService) {
+    public KountaServiceImpl(KountaApiClient kountaApiClient, OrderService orderService,
+                             ProductService productService, RedisCacheManager redisCacheManager, ObjectMapper objectMapper) {
         this.kountaApiClient = kountaApiClient;
         this.orderService = orderService;
         this.productService = productService;
+        this.redisCacheManager = redisCacheManager;
+        this.objectMapper = objectMapper;
     }
 
     @Override
-    public ListResponse getAllProducts(String accessToken) {
+    public ListResponse getAllProductsFromKounta() throws JsonProcessingException {
 
-        List<ProductResponse> products = kountaApiClient.getAllProducts(BEARER.concat(accessToken));
+        String redisValue = (String) redisCacheManager.fetchFromCache("token");
+        AuthorizationResponse authorizationResponse = objectMapper.readValue(redisValue, AuthorizationResponse.class);
+
+
+        List<ProductResponse> products = kountaApiClient.getAllProducts(BEARER.concat(authorizationResponse.getAccessToken()));
 
         if (!products.isEmpty()) {
             // add products in db
@@ -65,12 +81,15 @@ public class KountaServiceImpl implements KountaService {
     }
 
     @Override
-    public ListResponse getAllOrders(String accessToken, String startDate, String endDate) {
+    public ListResponse getAllOrdersFromKounta(String startDate, String endDate) throws JsonProcessingException {
 
         String created_lte = startDate + "T00:00:00Z";
         String created_gte = endDate + "T23:59:59Z";
 
-        List<OrdersResponse> orders = kountaApiClient.getAllOrders(BEARER.concat(accessToken), created_lte, created_gte);
+        String redisValue = (String) redisCacheManager.fetchFromCache("token");
+        AuthorizationResponse authorizationResponse = objectMapper.readValue(redisValue, AuthorizationResponse.class);
+
+        List<OrdersResponse> orders = kountaApiClient.getAllOrders(BEARER.concat(authorizationResponse.getAccessToken()), created_lte, created_gte);
 
         if (!orders.isEmpty()) {
             // add orders in db
@@ -102,8 +121,10 @@ public class KountaServiceImpl implements KountaService {
     }
 
     @Override
-    public AuthorizationResponse authorize(AuthorizationRequest authorizationRequest) {
-        return kountaApiClient.authorize(authorizationRequest);
+    public AuthorizationResponse authorize(AuthorizationRequest authorizationRequest) throws JsonProcessingException {
+        AuthorizationResponse authorizationResponse = kountaApiClient.authorize(authorizationRequest);
+        redisCacheManager.addToCache("token", objectMapper.writeValueAsString(authorizationResponse), 1, TimeUnit.HOURS);
+        return authorizationResponse;
     }
 
     @Override

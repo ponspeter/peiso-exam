@@ -20,7 +20,10 @@ It fetch the records from Kounta API and save it to local database.
         * *swagger*
         * *spring-feign*
         * *lombok*
+        * *mysql-connector-java*
+        * *redis*
     * MySQL
+    * Redis
 
 
 > REST Routes

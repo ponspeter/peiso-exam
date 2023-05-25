@@ -88,6 +88,14 @@ Bearer 1a2b3c4d5e6f7g8h9i0j
 ### Installation
 
 1. After cloning process, in project directory run `mvn clean install`, it will install all necessary dependencies.
-2. To run only backend, run `mvn --projects backend spring-boot:run`
-3. Check the swagger ui on [**Swagger UI**](http://localhost:8082/swagger-ui.html)
-4. [OPTIONAL] To run Vue CLI, run `npm run serve` command in frontend directory. This will work on `localhost:8080`
+2. create a database named `peiso`
+3. Change the database username and password in `application.properties` file
+```
+spring.datasource.username=your-username
+spring.datasource.password=your-password
+```
+
+```
+4. To run only backend, run `mvn --projects backend spring-boot:run`
+5. Check the swagger ui on [**Swagger UI**](http://localhost:8082/swagger-ui.html)
+6. [OPTIONAL] To run Vue CLI, run `npm run serve` command in frontend directory. This will work on `localhost:8080`

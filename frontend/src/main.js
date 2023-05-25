@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
-Vue.http.options.root = 'http://localhost:8082/api/user'
+Vue.http.options.root = 'http://localhost:8082/api/kounta'
 
 const router = new VueRouter({
   routes,

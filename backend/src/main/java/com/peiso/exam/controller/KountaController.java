@@ -44,7 +44,7 @@ public class KountaController {
         return kountaService.getAllProducts();
     }
 
-    @GetMapping("/products/kounta")
+    @GetMapping("/products")
     public ListResponse getAllProductsFromKounta() throws JsonProcessingException {
          return kountaService.getAllProductsFromKounta();
     }
@@ -55,7 +55,7 @@ public class KountaController {
         return kountaService.getAllOrders(startDate, endDate);
     }
 
-    @GetMapping("/orders/kounta")
+    @GetMapping("/orders")
     public ListResponse getAllOrdersFromKounta(@RequestParam("startDate") String startDate,
                                      @RequestParam("endDate") String endDate) throws JsonProcessingException {
         return kountaService.getAllOrdersFromKounta(startDate, endDate);

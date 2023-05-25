@@ -8,14 +8,14 @@
       </div>
     </div>
 
-    <Users></Users>
+    <Products></Products>
 
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <router-link to="/" class="nav-link" active-class="active" exact>Home</router-link>
+        <router-link to="/" class="nav-link" active-class="active" exact>Products</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/create" class="nav-link" active-class="active">Create</router-link>
+        <router-link to="/order" class="nav-link" active-class="active">Order</router-link>
       </li>
     </ul>
 
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import Users from './components/User/Users'
+import Products from './components/Product/Products'
 
 export default {
   name: 'app',
   components: {
-    Users
+    Products,
   }
   
 }

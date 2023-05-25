@@ -3,7 +3,6 @@ package com.peiso.exam.controller;
 import com.peiso.exam.common.model.ListResponse;
 import com.peiso.exam.integration.request.AuthorizationRequest;
 import com.peiso.exam.integration.response.AuthorizationResponse;
-import com.peiso.exam.integration.response.StaffResponse;
 import com.peiso.exam.service.KountaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,21 +41,26 @@ public class KountaController {
         return response;
     }
 
-    @GetMapping("/products")
-    public ListResponse getAllProducts(@RequestHeader("Authorization") String authorization) {
+    @GetMapping("/products/db")
+    public ListResponse getAllProductsFromDb() {
+        return kountaService.getAllProducts();
+    }
+
+    @GetMapping("/products/kounta")
+    public ListResponse getAllProductsFromKounta(@RequestHeader("Authorization") String authorization) {
         return kountaService.getAllProducts(authorization);
     }
 
-    @GetMapping("/staff")
-    public List<StaffResponse> getAllStaff(@RequestHeader("Authorization") String authorization) {
-        List<StaffResponse> response = kountaService.getAllStaff(authorization);
-        return response;
+    @GetMapping("/orders/db")
+    public ListResponse getAllOrdersFromDb(@RequestParam("startDate") String startDate,
+                                           @RequestParam("endDate") String endDate) {
+        return kountaService.getAllOrders(startDate, endDate);
     }
 
-    @GetMapping("/orders")
-    public ListResponse getAllOrders(@RequestHeader("Authorization") String authorization,
-                                             @RequestParam("created_lte") String created_lte,
-                                             @RequestParam("created_gte") String created_gte) {
-        return kountaService.getAllOrders(authorization, created_lte, created_gte);
+    @GetMapping("/orders/kounta")
+    public ListResponse getAllOrdersFromKounta(@RequestHeader("Authorization") String authorization,
+                                     @RequestParam("startDate") String startDate,
+                                     @RequestParam("endDate") String endDate) {
+        return kountaService.getAllOrders(authorization, startDate, endDate);
     }
 }

@@ -5,8 +5,6 @@ import com.peiso.exam.integration.request.AuthorizationRequest;
 import com.peiso.exam.integration.response.AuthorizationResponse;
 import com.peiso.exam.integration.response.OrdersResponse;
 import com.peiso.exam.integration.response.ProductResponse;
-import com.peiso.exam.integration.response.StaffResponse;
-import com.peiso.exam.model.Product;
 
 import java.util.List;
 
@@ -14,9 +12,11 @@ public interface KountaService {
 
     ListResponse getAllProducts(String accessToken);
 
-    List<StaffResponse> getAllStaff(String accessToken);
+    ListResponse getAllProducts();
 
-    ListResponse getAllOrders(String accessToken, String created_lte, String created_gte);
+    ListResponse getAllOrders(String accessToken, String startDate, String endDate);
+
+    ListResponse getAllOrders(String startDate, String endDate);
 
     AuthorizationResponse authorize(AuthorizationRequest authorizationRequest);
 

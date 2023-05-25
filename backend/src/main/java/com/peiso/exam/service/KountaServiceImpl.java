@@ -6,7 +6,6 @@ import com.peiso.exam.integration.request.AuthorizationRequest;
 import com.peiso.exam.integration.response.AuthorizationResponse;
 import com.peiso.exam.integration.response.OrdersResponse;
 import com.peiso.exam.integration.response.ProductResponse;
-import com.peiso.exam.integration.response.StaffResponse;
 import com.peiso.exam.model.Order;
 import com.peiso.exam.model.Product;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,8 @@ public class KountaServiceImpl implements KountaService {
 
     private final ProductService productService;
 
+    private final String BEARER = "Bearer ";
+
     public KountaServiceImpl(KountaApiClient kountaApiClient, OrderService orderService, ProductService productService) {
         this.kountaApiClient = kountaApiClient;
         this.orderService = orderService;
@@ -31,19 +32,16 @@ public class KountaServiceImpl implements KountaService {
     @Override
     public ListResponse getAllProducts(String accessToken) {
 
-        List<ProductResponse> products = kountaApiClient.getAllProducts(accessToken);
+        List<ProductResponse> products = kountaApiClient.getAllProducts(BEARER.concat(accessToken));
 
         if (!products.isEmpty()) {
             // add products in db
             addProduct(products);
 
-            // Extract products from db
-            List<Product> productsFromDb = productService.listProducts();
-
             return ListResponse
                     .builder()
-                    .data(productsFromDb)
-                    .totalCount(productsFromDb.size())
+                    .data(products)
+                    .totalCount(products.size())
                     .build();
         } else {
             return ListResponse
@@ -55,25 +53,32 @@ public class KountaServiceImpl implements KountaService {
     }
 
     @Override
-    public List<StaffResponse> getAllStaff(String accessToken) {
-        return kountaApiClient.getAllStaff(accessToken);
+    public ListResponse getAllProducts() {
+        // Extract products from db
+        List<Product> productsFromDb = productService.listProducts();
+
+        return ListResponse
+                .builder()
+                .data(productsFromDb)
+                .totalCount(productsFromDb.size())
+                .build();
     }
 
     @Override
-    public ListResponse getAllOrders(String accessToken, String created_lte, String created_gte) {
+    public ListResponse getAllOrders(String accessToken, String startDate, String endDate) {
 
-        List<OrdersResponse> orders = kountaApiClient.getAllOrders(accessToken, created_lte, created_gte);
+        String created_lte = startDate + "T00:00:00Z";
+        String created_gte = endDate + "T23:59:59Z";
+
+        List<OrdersResponse> orders = kountaApiClient.getAllOrders(BEARER.concat(accessToken), created_lte, created_gte);
 
         if (!orders.isEmpty()) {
             // add orders in db
             addOrder(orders);
 
-            // Extract orders from db
-            List<Order> ordersFromDb = orderService.listOrders();
-
             return ListResponse.builder()
-                    .data(ordersFromDb)
-                    .totalCount(ordersFromDb.size())
+                    .data(orders)
+                    .totalCount(orders.size())
                     .build();
         } else {
             return ListResponse.builder()
@@ -81,6 +86,19 @@ public class KountaServiceImpl implements KountaService {
                     .totalCount(0)
                     .build();
         }
+    }
+
+    @Override
+    public ListResponse getAllOrders(String startDate, String endDate) {
+        // Extract orders from db
+        // assume for now that the orders are already in the db
+        // this can be change to use the param as filter
+        List<Order> ordersFromDb = orderService.listOrders();
+
+        return ListResponse.builder()
+                .data(ordersFromDb)
+                .totalCount(ordersFromDb.size())
+                .build();
     }
 
     @Override
